@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report build info
+        run: |
+          echo "Release Ops Lab CI run"
+          echo "Ref: ${GITHUB_REF}"
+          echo "SHA: ${GITHUB_SHA}"
+          echo "Run started: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+
+      - name: Upload build report
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-report
+          path: build-report.txt
+          if-no-files-found: error
